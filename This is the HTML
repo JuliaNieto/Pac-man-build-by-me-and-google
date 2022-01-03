@@ -1,1 +1,12 @@
-
+<html>
+  <head>
+    <link rel="stylesheet" href="#"> <!--This is to link the stylesheet--!>
+  </head> 
+  <body>
+    <h1>Pacman</h1>
+    <h3>score:<span id="score">0</span></h3>
+    <div class="grid"><!--Where the game it will happen--!>
+   </div>
+    <script src="index.pack.js"></script> <!--This is to link the Javascript file--!>
+  </body>
+</html>
