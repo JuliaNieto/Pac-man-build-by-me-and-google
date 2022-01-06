@@ -62,13 +62,69 @@ function createBoard(){
    else if(layout[i]=== 3){
             squares[i].classList.add('power-pellet')
         }
-}
+   else if (layout[i] === 2){
+            squares[i].classList.add('ghost-lair')
+        }
+   }
 }
 
 //starting position of pacman
 let pacmanCurrentIndex = 500
 
 squares[pacmanCurrentIndex].classList.add('pacman')
+
+
+//we add an event listener to the html document so that each time we press the key the control function is executed
+document.addEventListener('keyup', contol())
+
+
+// switch statement
+// when a key code is pressed do the action defined (in this case console.log
+// then break the function and go to the next
+
+function control(e) {
+    squares[pacmanCurrentIndex].classList.remove('pacman')
+    switch(e.keyCode) {
+        case 40:
+        console.log('pressed down')
+        if (
+            !squares[pacmanCurrentIndex + width].classList.contains('ghost-lair') &&
+            !squares[pacmanCurrentIndex + width].classList.contains('wall') &&
+            pacmanCurrentIndex + width < width * width
+            ) 
+            pacmanCurrentIndex += width
+        break
+        case 38:
+        console.log('pressed up')
+        if (
+            !squares[pacmanCurrentIndex - width].classList.contains('ghost-lair') &&
+            !squares[pacmanCurrentIndex - width].classList.contains('wall') &&
+            pacmanCurrentIndex - width >=0
+            ) 
+            pacmanCurrentIndex -= width
+        break
+        case 37: 
+        console.log('pressed left')
+        if( 
+            !squares[pacmanCurrentIndex -1].classList.contains('ghost-lair')&&
+            !squares[pacmanCurrentIndex -1].classList.contains('wall') &&
+            pacmanCurrentIndex % width !==0
+            ) 
+            pacmanCurrentIndex -=1
+        break
+        case 39:
+        console.log('pressed right')
+        if(
+            !squares[pacmanCurrentIndex +1].classList.contains('ghost-lair') &&
+            !squares[pacmanCurrentIndex +1].classList.contains('wall') &&
+            pacmanCurrentIndex % width < width -1
+            ) 
+            pacmanCurrentIndex +=1
+        break
+    }
+    squares[pacmanCurrentIndex].classList.add('pacman')
+}
+document.addEventListener('keyup', control)
 
 
 
