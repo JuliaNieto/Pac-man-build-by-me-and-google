@@ -2,7 +2,7 @@ const width = 28 // squares
 const grid = document.querySelector('.grid ')
 const scoreDisplay = document.querySelector('#score') // or we can use .getElementById('id') and directly pass the ID without any # or.
 let squares = []
-
+let score = 0
 // 28 squares horizontal by 28 squares vertical makes 784 squares total
 // 0 - pac-dots
 // 1 - wall
@@ -111,6 +111,10 @@ function control(e) {
             pacmanCurrentIndex % width !==0
             ) 
             pacmanCurrentIndex -=1
+            
+        if(pacmanCurrentIndex === 364){
+            pacmanCurrentIndex = 391
+        }
         break
         case 39:
         console.log('pressed right')
@@ -120,12 +124,47 @@ function control(e) {
             pacmanCurrentIndex % width < width -1
             ) 
             pacmanCurrentIndex +=1
+        if(pacmanCurrentIndex === 391){
+            pacmanCurrentIndex = 364
+        }
         break
     }
     squares[pacmanCurrentIndex].classList.add('pacman')
+    pacDocEaten()
 }
 document.addEventListener('keyup', control)
 
+ function pacDotEaten(){
+    if(squares[pacmanCurrentIndex].classList.contains('pac-dot')){
+         aquares[pacmanCurrentIndex].classList.remove('pac-dot')
+         score ++1
+         scoreDisplay.innerHTML= score
+    }
+ 
+ }
+ 
+ 
+ class Ghost{
+   constructor(classname, startIndex,speed){
+      this.className = className
+      this.startIndex = startIndex
+      this.speed = speed
+      this.currentIndex=startIndex
+      this.isScared = false 
+      this.timerId = NaN
+      
+   }
+ 
+ }
+  
+const ghosts = [
+   new Ghost ('blinky', 348, 250)
+   new Ghost('pinky', 376, 400)
+   new Ghost('inky',351 ,300 )
+   new Ghost('clyde',379 ,500 )
+]
+
+ghosts.forEach(ghost => squares[ghost.startIndex]).classList.add(ghost.className)
 
 
  
