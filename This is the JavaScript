@@ -131,7 +131,9 @@ function control(e) {
     }
     squares[pacmanCurrentIndex].classList.add('pacman')
     pacDocEaten()
+    powerPelletEaten()
 }
+
 document.addEventListener('keyup', control)
 
  function pacDotEaten(){
@@ -157,6 +159,30 @@ document.addEventListener('keyup', control)
  
  }
   
+  
+function powerPelletEaten(){
+  // if square[pacmanIndex] is the same as square[powerPellet]
+  if(squares[pacmanCurrentIndex].classList.contains('power-pellet')){
+  // we remove the class of powerpellet
+  squares[pacmanCurrentIndex].classList.remove('power-pellet')
+  // we add 10 points to the score
+      score+= 10
+ //we make each ghost scared by changing the property isScared to true, because now is sscared
+      ghosts.forEach(ghost => ghost.iScared = true)
+  //And we set a time out so ghosts become unscared after 10 seconds
+      setTimeout(unScareGhosts(), 10000ms)
+      
+  }
+ 
+}  
+  
+function unScareGhosts(){
+   ghosts.forEach(ghost=> ghost.isScared = false)
+}
+  
+  
+  
+  
 const ghosts = [
    new Ghost ('blinky', 348, 250)
    new Ghost('pinky', 376, 400)
@@ -164,7 +190,49 @@ const ghosts = [
    new Ghost('clyde',379 ,500 )
 ]
 
-ghosts.forEach(ghost => squares[ghost.startIndex]).classList.add(ghost.className)
+ghosts.forEach(ghost => {
+squares[ghost.startIndex]).classList.add(ghost.className)
+squares[ghost.startIndex].classList.add('ghost') // invisible class
 
+})
+
+
+ghost.forEach(ghost=>moveGhost(ghost))
+
+function moveGhost(ghost){
+   // select the direction courses, up down left right
+   const directions = [-1, +1, -width, +width]
+   let direction = directions[Math.floor(Math.random()) * direction.length]
+   
+   ghost.timerId = setInterval(function(){
+   //we check there is no wall and no ghost
+      if( !squares[ghost.currentIndex + direction].classList.contains('wall') &&
+          !squares[ghost.currentIndex +direction].classList.contains('ghost)
+      ){
+   
+   //wherever in the square is the ghost remove its classname
+      squares[ghost.currentIndex].classList.remove(ghost.className)
+      // we also remove the scared ghost class if nto it will be leaving a trail
+      squares[ghost.currentIndex].classList.remove('ghost', 'scared-ghost')
+      // we add direction to the ghosts
+      ghost.currentIndex += direction
+      // and then we add the classname again
+      squares[ghost.currentIndex].classList.remove(ghost.className)
+      squares[ghost.currentIndex].classList.add('ghost')
+   }
+   else {
+      direction = directions[Math.floor(Math.random()) * direction.length]
+   }
+   
+   // if the ghost is scared then change the slyling to 'scared'
+   // the deeply equals true is not necessary 100%
+   if(ghost.isScared===true){
+      squares[ghostCurrentIndex].classList.add('scared-ghost')
+   }
+   
+   
+   
+   }, ghost.speed)
+}
 
  
