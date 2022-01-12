@@ -230,9 +230,55 @@ function moveGhost(ghost){
       squares[ghostCurrentIndex].classList.add('scared-ghost')
    }
    
+ 
+  
+   // if the ghost is scared and contains the class of pacman
+   if(ghost.isScared && squares[ghost.currentIndex]classList.contains('pacman')){
+   // remove the ghost classname, the 'ghost' and 'scared-ghost'
+      squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+      ghost.currentIndex= ghost.startIndex
+      score =+100
+     squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+      
+   }
+   
    
    
    }, ghost.speed)
+}
+checkForGaveOver()
+
+//game over let's do it
+
+function checkForGaveOver(){
+  if(squares[pacmanCurrentIndex].classList.contains('ghost') && !squares[pacmanCurrentIndex].classList.contains['scared-ghost']){
+    //for each ghost - we need to stop it moving
+    
+    ghosts.forEach(ghost => clearInterval(ghost.timerId))
+    
+    //remove eventlistener from our control function
+    
+    document.removeEventListener('keyup', control)
+    
+    //tell user the game is over 
+    scoreDisplay.innerHTML= "game over :("
+    
+     }
+}
+
+//Check for win
+
+function checkForWin(){
+   if(score === 274) {
+      // stop each ghost moving same as above
+      ghosts.forEach(ghost => clearInterval(ghost.timerId))
+      
+      // remove the evennt listener for control function
+      document.removeEventListener('keyup', control)
+      // tell user that we have won
+      scoreDisplay.innerHTML= "You have won! Woohooo"
+   }
+ 
 }
 
  
